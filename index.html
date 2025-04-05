@@ -1,67 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ominous Sounds</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
-        body {
-            background-color: black;
-            color: #32CD32;
-            font-family: 'Special Elite', Courier, monospace;
-            text-align: center;
-            padding: 20px;
-            cursor: url('https://cur.cursors-4u.net/nature/nat-8/nat777.cur'), auto;
-        }
-        h1 {
-            text-shadow: 2px 2px 5px red;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid #32CD32;
-            box-shadow: 0px 0px 15px red;
-            border-radius: 10px;
-        }
-        .audio-player {
-            margin-top: 20px;
-        }
-        .audio-player audio {
-            width: 100%;
-            filter: invert(1) brightness(0.5);
-            background: black;
-            border-radius: 5px;
-        }
-        .typewriter {
-            overflow: hidden;
-            white-space: nowrap;
-            animation: typing 4s steps(40, end) infinite alternate;
-        }
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ominous Sounds - Retro Player with Typewriter</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+    
+    body {
+      background-color: black;
+      color: #32CD32;
+      font-family: 'Special Elite', Courier, monospace;
+      text-align: center;
+      padding: 20px;
+      cursor: url('https://cur.cursors-4u.net/nature/nat-8/nat777.cur'), auto;
+    }
+    
+    h1 {
+      text-shadow: 2px 2px 5px purple;
+    }
+    
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.8);
+      border: 2px solid #32CD32;
+      box-shadow: 0px 0px 15px purple;
+      border-radius: 10px;
+    }
+    
+    /* Typewriter Text Animation */
+    .typewriter {
+      overflow: hidden;
+      white-space: nowrap;
+      animation: typing 4s steps(40, end) infinite alternate;
+      margin-bottom: 20px;
+    }
+    
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    
+    /* Retro Player Styles */
+    .retro-player {
+      background: #222;
+      border: 2px solid #32CD32;
+      border-radius: 5px;
+      padding: 10px;
+      margin: 20px 0;
+    }
+    
+    .play-btn {
+      background: #000;
+      color: #32CD32;
+      border: 2px solid #32CD32;
+      border-radius: 3px;
+      padding: 5px 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    
+    .progress-container {
+      background: #555;
+      border: 1px solid #32CD32;
+      height: 10px;
+      width: 100%;
+      margin-top: 10px;
+      position: relative;
+    }
+    
+    .progress-bar {
+      background: #32CD32;
+      height: 100%;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+  </style>
 </head>
 <body>
-    <h1>Ominous Sounds</h1>
-    <div class="container">
-        <p class="typewriter">"Listen carefully... some sounds are better left unheard..."</p>
-        <div class="audio-player">
-            <audio controls>
-                <source src="tracks/eerie.m4a" type="audio/mp4">
-                Your browser does not support the audio element.
-            </audio>
-        </div>
-        <div class="audio-player">
-            <audio controls>
-                <source src="tracks/godhelpufr.m4a" type="audio/mp4">
-                Your browser does not support the audio element.
-            </audio>
-        </div>
+  <h1>Ominous Sounds</h1>
+  <div class="container">
+    <p class="typewriter">"Listen carefully... some sounds are better left unheard..."</p>
+    
+    <div class="retro-player">
+      <audio id="audio1" src="tracks/eeire.m4a" type="audio/mp4"></audio>
+      <button class="play-btn" onclick="togglePlay('audio1', 'btn1')" id="btn1">Play</button>
+      <div class="progress-container">
+        <div class="progress-bar" id="progress1"></div>
+      </div>
     </div>
+    
+    <div class="retro-player">
+      <audio id="audio2" src="tracks/godhelpufr.m4a" type="audio/mp4"></audio>
+      <button class="play-btn" onclick="togglePlay('audio2', 'btn2')" id="btn2">Play</button>
+      <div class="progress-container">
+        <div class="progress-bar" id="progress2"></div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    function togglePlay(audioId, btnId) {
+      var audio = document.getElementById(audioId);
+      var btn = document.getElementById(btnId);
+      if (audio.paused) {
+        audio.play();
+        btn.textContent = "Pause";
+      } else {
+        audio.pause();
+        btn.textContent = "Play";
+      }
+    }
+    
+    function updateProgress(audioId, progressId) {
+      var audio = document.getElementById(audioId);
+      var progress = document.getElementById(progressId);
+      var percentage = (audio.currentTime / audio.duration) * 100;
+      progress.style.width = percentage + "%";
+    }
+    
+    // Update progress for each audio element
+    document.getElementById('audio1').addEventListener('timeupdate', function() {
+      updateProgress('audio1', 'progress1');
+    });
+    document.getElementById('audio2').addEventListener('timeupdate', function() {
+      updateProgress('audio2', 'progress2');
+    });
+    
+    // Reset button text when audio ends
+    document.getElementById('audio1').addEventListener('ended', function() {
+      document.getElementById('btn1').textContent = "Play";
+    });
+    document.getElementById('audio2').addEventListener('ended', function() {
+      document.getElementById('btn2').textContent = "Play";
+    });
+  </script>
 </body>
 </html>
