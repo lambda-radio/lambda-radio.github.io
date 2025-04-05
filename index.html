@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ominous Sounds</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+        body {
+            background-color: black;
+            color: #32CD32;
+            font-family: 'Special Elite', Courier, monospace;
+            text-align: center;
+            padding: 20px;
+            cursor: url('https://cur.cursors-4u.net/nature/nat-8/nat777.cur'), auto;
+        }
+        h1 {
+            text-shadow: 2px 2px 5px red;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #32CD32;
+            box-shadow: 0px 0px 15px red;
+            border-radius: 10px;
+        }
+        .audio-player {
+            margin-top: 20px;
+        }
+        .audio-player audio {
+            width: 100%;
+            filter: invert(1) brightness(0.5);
+            background: black;
+            border-radius: 5px;
+        }
+        .typewriter {
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typing 4s steps(40, end) infinite alternate;
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Ominous Sounds</h1>
+    <div class="container">
+        <p class="typewriter">"Listen carefully... some sounds are better left unheard..."</p>
+        <div class="audio-player">
+            <audio controls>
+                <source src="ominous1.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        <div class="audio-player">
+            <audio controls>
+                <source src="ominous2.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    </div>
+</body>
+</html>
