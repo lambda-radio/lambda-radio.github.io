@@ -1,182 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="apple-touch-icon" href="style/logo.png">
-  <meta name="title" content="Lambda Radio">
-  <meta name="description" content="Ominous Sounds.">
-  <meta property="og:title" content="Lambda Radio">
-  <meta property="og:description" content="Ominous Sounds.">
-  <meta property="og:url" content="https://lambda-radio.com">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="Lambda Radio">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
-    
-    body {
-      background-color: black;
-      color: #32CD32;
-      font-family: 'Special Elite', Courier, monospace;
-      text-align: center;
-      padding: 20px;
-      cursor: url('https://cur.cursors-4u.net/nature/nat-8/nat777.cur'), auto;
-    }
-    
-    h1 {
-      text-shadow: 2px 2px 5px purple;
-    }
-    
-    .container {
-      max-width: 600px;
-      margin: auto;
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.8);
-      border: 2px solid #32CD32;
-      box-shadow: 0px 0px 15px purple;
-      border-radius: 10px;
-    }
-    
-    /* Typewriter Text Animation */
-    .typewriter {
-      overflow: hidden;
-      white-space: nowrap;
-      animation: typing 4s steps(40, end) infinite alternate;
-      margin-bottom: 20px;
-    }
-    
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-    
-    /* Retro Player Styles */
-    .retro-player {
-      background: #222;
-      border: 2px solid #32CD32;
-      border-radius: 5px;
-      padding: 10px;
-      margin: 20px 0;
-    }
-    
-    .play-btn {
-      background: #000;
-      color: #32CD32;
-      border: 2px solid #32CD32;
-      border-radius: 3px;
-      padding: 5px 10px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    
-    .progress-container {
-      background: #555;
-      border: 1px solid #32CD32;
-      height: 10px;
-      width: 100%;
-      margin-top: 10px;
-      position: relative;
-    }
-    
-    .progress-bar {
-      background: #32CD32;
-      height: 100%;
-      width: 0%;
-      transition: width 0.1s linear;
-    }
-  </style>
-</head>
-<body>
-  <h1>Ominous Sounds <br><br> Lambda Radio</h1>
-  <div class="container">
-    <p class="typewriter">"Listen carefully... some sounds are better left unheard..."</p>
-    <!-- Container where all players will be dynamically added -->
-    <div id="playerContainer"></div>
-  </div>
-  
-  <script>
-    // File-list: update this array to change the audio tracks.
-    const tracks = [
-      { id: 'audio1', file: 'tracks/eerie.m4a' },
-      { id: 'audio2', file: 'tracks/godhelpufr.m4a' },
-      // Add more tracks here, e.g.,
-      // { id: 'audioX', file: 'tracks/anothertrack.m4a' }
-    ];
-    
-    // Function to create a player for a given track.
-    function createPlayer(track, index) {
-      // Create container for the audio player
-      const playerDiv = document.createElement('div');
-      playerDiv.className = 'retro-player';
-      
-      // Create audio element
-      const audio = document.createElement('audio');
-      audio.id = track.id;
-      audio.src = track.file;
-      audio.type = 'audio/mp4';
-      playerDiv.appendChild(audio);
-      
-      // Create Play/Pause button.
-      const button = document.createElement('button');
-      button.className = 'play-btn';
-      // Use a unique id for the button (e.g., "btn" + index)
-      button.id = 'btn' + index;
-      button.textContent = 'Play';
-      button.onclick = () => togglePlay(track.id, button.id);
-      playerDiv.appendChild(button);
-      
-      // Create progress bar container.
-      const progressContainer = document.createElement('div');
-      progressContainer.className = 'progress-container';
-      
-      // Create the actual progress bar.
-      const progressBar = document.createElement('div');
-      progressBar.className = 'progress-bar';
-      // Give it a unique id (e.g., "progress" + index)
-      progressBar.id = 'progress' + index;
-      progressContainer.appendChild(progressBar);
-      playerDiv.appendChild(progressContainer);
-      
-      // Add event listeners for updating progress and resetting button text.
-      audio.addEventListener('timeupdate', () => updateProgress(track.id, progressBar.id));
-      audio.addEventListener('ended', () => {
-        document.getElementById(button.id).textContent = "Play";
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="apple-touch-icon" href="style/logo.png" />
+    <meta name="title" content="Lambda Radio" />
+    <meta name="description" content="Ominous Sounds." />
+    <meta property="og:title" content="Lambda Radio" />
+    <meta property="og:description" content="Ominous Sounds." />
+    <meta property="og:url" content="https://lambda-radio.com" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Lambda Radio" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+
+      body {
+        background-color: black;
+        color: #32cd32;
+        font-family: 'Special Elite', Courier, monospace;
+        text-align: center;
+        padding: 20px;
+        cursor: url('https://cur.cursors-4u.net/nature/nat-8/nat777.cur'), auto;
+      }
+
+      h1 {
+        text-shadow: 2px 2px 5px purple;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.8);
+        border: 2px solid #32cd32;
+        box-shadow: 0px 0px 15px purple;
+        border-radius: 10px;
+      }
+
+      .typewriter {
+        overflow: hidden;
+        white-space: nowrap;
+        animation: typing 4s steps(40, end) infinite alternate;
+        margin-bottom: 20px;
+      }
+
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+        to {
+          width: 100%;
+        }
+      }
+
+      .retro-player {
+        background: #222;
+        border: 2px solid #32cd32;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 20px 0;
+      }
+
+      .play-btn {
+        background: #000;
+        color: #32cd32;
+        border: 2px solid #32cd32;
+        border-radius: 3px;
+        padding: 5px 10px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .progress-container {
+        background: #555;
+        border: 1px solid #32cd32;
+        height: 10px;
+        width: 100%;
+        margin-top: 10px;
+        position: relative;
+      }
+
+      .progress-bar {
+        background: #32cd32;
+        height: 100%;
+        width: 0%;
+        transition: width 0.1s linear;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Ominous Sounds <br /><br />Lambda Radio</h1>
+    <div class="container">
+      <p class="typewriter">"Listen carefully... some sounds are better left unheard..."</p>
+      <div id="playerContainer"></div>
+      <p class="typewriter">"...others are hot 'n ready"</p>
+      <!--<div id="instrumentalsPlayer"></div> -->
+      coming soon
+    </div>
+    <br><br>
+    <div>
+      Proud customer of <br>
+      <img src="style/pf.png" alt="Logo" width="150">
+    </div>
+
+    <script>
+      const tracks = [
+        { id: 'audio1', file: 'tracks/eerie.m4a' },
+        { id: 'audio2', file: 'tracks/godhelpufr.m4a' }
+      ];
+
+      const instrumentalTracks = [
+        { id: 'instr1', file: 'tracks/darkwhispers.m4a' },
+        { id: 'instr2', file: 'tracks/echoes.m4a' }
+      ];
+
+      function createPlayer(track, index) {
+        const playerDiv = document.createElement('div');
+        playerDiv.className = 'retro-player';
+
+        const audio = document.createElement('audio');
+        audio.id = track.id;
+        audio.src = track.file;
+        audio.type = 'audio/mp4';
+        playerDiv.appendChild(audio);
+
+        const button = document.createElement('button');
+        button.className = 'play-btn';
+        button.id = 'btn' + index;
+        button.textContent = 'Play';
+        button.onclick = () => togglePlay(track.id, button.id);
+        playerDiv.appendChild(button);
+
+        const progressContainer = document.createElement('div');
+        progressContainer.className = 'progress-container';
+
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-bar';
+        progressBar.id = 'progress' + index;
+        progressContainer.appendChild(progressBar);
+        playerDiv.appendChild(progressContainer);
+
+        audio.addEventListener('timeupdate', () => updateProgress(track.id, progressBar.id));
+        audio.addEventListener('ended', () => {
+          document.getElementById(button.id).textContent = 'Play';
+        });
+
+        return playerDiv;
+      }
+
+      function togglePlay(audioId, btnId) {
+        const audio = document.getElementById(audioId);
+        const btn = document.getElementById(btnId);
+        if (audio.paused) {
+          audio.play();
+          btn.textContent = 'Pause';
+        } else {
+          audio.pause();
+          btn.textContent = 'Play';
+        }
+      }
+
+      function updateProgress(audioId, progressId) {
+        const audio = document.getElementById(audioId);
+        const progress = document.getElementById(progressId);
+        if (audio.duration) {
+          const percentage = (audio.currentTime / audio.duration) * 100;
+          progress.style.width = percentage + '%';
+        }
+      }
+
+      const mainContainer = document.getElementById('playerContainer');
+      tracks.forEach((track, index) => {
+        mainContainer.appendChild(createPlayer(track, index));
       });
-      
-      return playerDiv;
-    }
-    
-    // Toggle play/pause for a given audio element.
-    function togglePlay(audioId, btnId) {
-      const audio = document.getElementById(audioId);
-      const btn = document.getElementById(btnId);
-      if (audio.paused) {
-        audio.play();
-        btn.textContent = "Pause";
-      } else {
-        audio.pause();
-        btn.textContent = "Play";
-      }
-    }
-    
-    // Update the progress bar based on currentTime and duration.
-    function updateProgress(audioId, progressId) {
-      const audio = document.getElementById(audioId);
-      const progress = document.getElementById(progressId);
-      if (audio.duration) {
-        const percentage = (audio.currentTime / audio.duration) * 100;
-        progress.style.width = percentage + "%";
-      }
-    }
-    
-    // Get the container element.
-    const container = document.getElementById('playerContainer');
-    
-    // Loop through the tracks and append each player to the container.
-    tracks.forEach((track, index) => {
-      container.appendChild(createPlayer(track, index));
-    });
-  </script>
-</body>
+
+      const instrumentalsContainer = document.getElementById('instrumentalsPlayer');
+      instrumentalTracks.forEach((track, index) => {
+        instrumentalsContainer.appendChild(createPlayer(track, index + tracks.length));
+      });
+    </script>
+  </body>
 </html>
